@@ -40,6 +40,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/submit', (req, res) => {
   const matricula = req.body.matricula;
   console.log(`matricula: ${matricula}`);
+  // o valor inserido no input é concatenado a Query de consulta Select como sendo a condição de filtragem
+  // porém ao passar uma condição que é sempre verdadeira, ex: 1 = 1, todas as tuplas são retornadas.
   connection.query("SELECT * FROM Plantonista WHERE matricula = " + matricula + ";", 
       function (err, result) {
         const resultTreated = result?.map(item =>`<tr><td>${item?.nomeCompleto}</td></tr>`)
